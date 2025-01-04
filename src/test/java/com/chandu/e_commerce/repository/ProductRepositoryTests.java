@@ -84,7 +84,7 @@ public class ProductRepositoryTests
 
         //Act
         productRepository.save(product);
-        Product rs=productRepository.findById(product.getProductId()).get();
+        Product rs=productRepository.findById((int) product.getProductId()).get();
 
         //Assert
         Assertions.assertThat(rs).isNotNull();
@@ -147,11 +147,12 @@ public class ProductRepositoryTests
                 .productImage("---")
                 .productQuantity(78)
                 .productRating(4.5)
+                .productId(1)
                 .build();
 
         //Act
         productRepository.save(product);
-        Product rs=productRepository.findById(product.getProductId()).get();
+        Product rs=productRepository.findById((int) product.getProductId()).get();
 
         rs.setProductImage("Url");
         rs.setProductDescription("Laptop for sale");
@@ -181,9 +182,9 @@ public class ProductRepositoryTests
         //Act
         productRepository.save(product);
 
-        productRepository.deleteById(product.getProductId());
+        productRepository.deleteById((int) product.getProductId());
 
-        Optional<Product> result=productRepository.findById(product.getProductId());
+        Optional<Product> result=productRepository.findById((int) product.getProductId());
         //Assert
         Assertions.assertThat(result).isEmpty();
     }

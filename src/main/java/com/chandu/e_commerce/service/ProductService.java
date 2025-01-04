@@ -7,4 +7,6 @@ import org.springframework.http.ResponseEntity;
 public interface ProductService
 {
     ResponseEntity<JSONResponseDTO> addProduct(ProductRequestDTO productRequestDTO);
+
+    ResponseEntity<JSONResponseDTO> findAllProducts();
 }

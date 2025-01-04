@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Product
 {
     @Id
-    private int productId;
+    private long productId;
     private String productName;
     private String productDescription;
     private double productPrice;
