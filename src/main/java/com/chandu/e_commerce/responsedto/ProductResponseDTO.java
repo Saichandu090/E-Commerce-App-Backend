@@ -1,20 +1,16 @@
-package com.chandu.e_commerce.model;
+package com.chandu.e_commerce.responsedto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product
+@Builder
+public class ProductResponseDTO
 {
-    @Id
     private long productId;
     private String productName;
     private String productDescription;
@@ -23,6 +19,4 @@ public class Product
     private int productQuantity;
     private double productRating;
     private int productDiscount;
-    private int categoryId;
-    private int brandId;
 }

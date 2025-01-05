@@ -6,5 +6,13 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProductService
 {
-    ResponseEntity<JSONResponseDTO> addProduct(ProductRequestDTO productRequestDTO);
+    JSONResponseDTO addProduct(ProductRequestDTO productRequestDTO);
+
+    JSONResponseDTO findAllProducts();
+
+    JSONResponseDTO getProductById(Long id);
+
+    JSONResponseDTO updateProduct(Long id,ProductRequestDTO requestDTO);
+
+    JSONResponseDTO deleteProduct(Long id);
 }
