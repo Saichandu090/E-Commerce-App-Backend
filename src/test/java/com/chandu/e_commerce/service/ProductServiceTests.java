@@ -4,7 +4,7 @@ import com.chandu.e_commerce.model.Product;
 import com.chandu.e_commerce.repository.ProductRepository;
 import com.chandu.e_commerce.requestdto.ProductRequestDTO;
 import com.chandu.e_commerce.responsedto.JSONResponseDTO;
-import com.chandu.e_commerce.serviceimpl.ProductServiceImpl;
+import com.chandu.e_commerce.service.serviceimpl.ProductServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,12 +14,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.when;
 
@@ -61,10 +58,10 @@ public class ProductServiceTests
 
         when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
 
-        ResponseEntity<JSONResponseDTO> res=productService.addProduct(requestDTO);
+        JSONResponseDTO res=productService.addProduct(requestDTO);
 
-        Assertions.assertThat(res.getStatusCode()).isSameAs(HttpStatus.CREATED);
-        Assertions.assertThat(res.getBody().getData()).isNotNull();
+        Assertions.assertThat(res).isNotNull();
+        Assertions.assertThat(res.isResult()).isTrue();
     }
 
 
@@ -75,9 +72,9 @@ public class ProductServiceTests
 
         when(productRepository.findAll()).thenReturn(products);
 
-        ResponseEntity<JSONResponseDTO> res=productService.findAllProducts();
+        JSONResponseDTO res=productService.findAllProducts();
 
-        Assertions.assertThat(res.getStatusCode()).isSameAs(HttpStatus.OK);
+        Assertions.assertThat(res).isNotNull();
     }
 
     @Test
@@ -97,10 +94,9 @@ public class ProductServiceTests
 
         when(productRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(product));
 
-        ResponseEntity<JSONResponseDTO> res=productService.getProductById(product.getProductId());
+        JSONResponseDTO res=productService.getProductById(product.getProductId());
 
         Assertions.assertThat(res).isNotNull();
-        Assertions.assertThat(res.getStatusCode()).isSameAs(HttpStatus.OK);
     }
 
     @Test
@@ -152,9 +148,8 @@ public class ProductServiceTests
         when(productRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(product));
         when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
 
-        ResponseEntity<JSONResponseDTO> response=productService.updateProduct(product.getProductId(),requestDTO);
+        JSONResponseDTO response=productService.updateProduct(product.getProductId(),requestDTO);
 
-        Assertions.assertThat(response.getStatusCode()).isSameAs(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isNotNull();
+        Assertions.assertThat(response).isNotNull();
     }
 }

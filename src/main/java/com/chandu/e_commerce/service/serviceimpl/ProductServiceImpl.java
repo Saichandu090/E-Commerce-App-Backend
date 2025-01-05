@@ -1,4 +1,4 @@
-package com.chandu.e_commerce.serviceimpl;
+package com.chandu.e_commerce.service.serviceimpl;
 
 import com.chandu.e_commerce.exception.ProductNotFoundException;
 import com.chandu.e_commerce.mapper.ProductMapper;
@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService
     private final ProductMapper productMapper=new ProductMapper();
 
     @Override
-    public ResponseEntity<JSONResponseDTO> addProduct(ProductRequestDTO productRequestDTO)
+    public JSONResponseDTO addProduct(ProductRequestDTO productRequestDTO)
     {
         Product product=productMapper.convertIntoProduct(productRequestDTO);
 
@@ -32,27 +32,28 @@ public class ProductServiceImpl implements ProductService
 
         ProductResponseDTO responseDTO=productMapper.convertToResponse(savedProduct);
 
-        return new ResponseEntity<>(new JSONResponseDTO(true,"Product saved successfully", List.of(responseDTO)), HttpStatus.CREATED);
+        return new JSONResponseDTO(true,"Product saved successfully", List.of(responseDTO));
     }
 
     @Override
-    public ResponseEntity<JSONResponseDTO> findAllProducts()
+    public JSONResponseDTO findAllProducts()
     {
         List<Product> products=productRepository.findAll();
-        List<ProductResponseDTO> responseDTOS=products.stream().map(p->new ProductResponseDTO(p.getProductId(),p.getProductName(),p.getProductDescription(),p.getProductPrice(),p.getProductImage(),p.getProductQuantity(),p.getProductRating(),p.getProductDiscount())).toList();
-        return new ResponseEntity<>(new JSONResponseDTO(true,"All products fetched",responseDTOS),HttpStatus.OK);
+        List<ProductResponseDTO> responseDTOS=products.stream()
+                .map(p->new ProductResponseDTO(p.getProductId(),p.getProductName(),p.getProductDescription(),p.getProductPrice(),p.getProductImage(),p.getProductQuantity(),p.getProductRating(),p.getProductDiscount())).toList();
+        return new JSONResponseDTO(true,"All products fetched",responseDTOS);
     }
 
     @Override
-    public ResponseEntity<JSONResponseDTO> getProductById(Long id)
+    public JSONResponseDTO getProductById(Long id)
     {
         Product product=productRepository.findById(id).orElseThrow(()->new ProductNotFoundException("Product Not Found"));
         ProductResponseDTO responseDTO=productMapper.convertToResponse(product);
-        return new ResponseEntity<>(new JSONResponseDTO(true,"Product Fetched successfully",List.of(responseDTO)),HttpStatus.OK);
+        return new JSONResponseDTO(true,"Product Fetched successfully",List.of(responseDTO));
     }
 
     @Override
-    public ResponseEntity<JSONResponseDTO> updateProduct(Long id, ProductRequestDTO requestDTO)
+    public JSONResponseDTO updateProduct(Long id, ProductRequestDTO requestDTO)
     {
         Product product=productRepository.findById(id).orElseThrow(()->new ProductNotFoundException("Product not found"));
         Product updatedProduct=productMapper.mapToUpdatedProduct(product);
@@ -60,14 +61,14 @@ public class ProductServiceImpl implements ProductService
         Product savedProduct=productRepository.save(updatedProduct);
 
         ProductResponseDTO responseDTO=productMapper.convertToResponse(savedProduct);
-        return new ResponseEntity<>(new JSONResponseDTO(true,"Product updated successfully",List.of(responseDTO)),HttpStatus.OK);
+        return new JSONResponseDTO(true,"Product updated successfully",List.of(responseDTO));
     }
 
     @Override
-    public ResponseEntity<JSONResponseDTO> deleteProduct(Long id)
+    public JSONResponseDTO deleteProduct(Long id)
     {
         Product product=productRepository.findById(id).orElseThrow(()->new ProductNotFoundException("Product not found"));
         productRepository.delete(product);
-        return new ResponseEntity<>(new JSONResponseDTO(true,"Product deleted successfully",null),HttpStatus.OK);
+        return new JSONResponseDTO(true,"Product deleted successfully",null);
     }
 }
