@@ -9,4 +9,10 @@ public interface ProductService
     ResponseEntity<JSONResponseDTO> addProduct(ProductRequestDTO productRequestDTO);
 
     ResponseEntity<JSONResponseDTO> findAllProducts();
+
+    ResponseEntity<JSONResponseDTO> getProductById(Long id);
+
+    ResponseEntity<JSONResponseDTO> updateProduct(Long id,ProductRequestDTO requestDTO);
+
+    ResponseEntity<JSONResponseDTO> deleteProduct(Long id);
 }
