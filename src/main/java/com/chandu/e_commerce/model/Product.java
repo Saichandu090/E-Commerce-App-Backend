@@ -2,10 +2,13 @@ package com.chandu.e_commerce.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @Entity
@@ -25,4 +28,7 @@ public class Product
     private int productDiscount;
     private int categoryId;
     private int brandId;
+
+    @OneToMany
+    private List<Cart> carts;
 }

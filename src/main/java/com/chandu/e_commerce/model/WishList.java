@@ -5,24 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Address
+@Builder
+public class WishList
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
-    private String addressLine1;
-    private String addressLine2;
-    private String city;
-    private String state;
-    private String country;
-    private String zipCode;
-    private String addressType;
-    private Integer customerId;
+    private Integer wishListId;
+    private Long productId;
 }

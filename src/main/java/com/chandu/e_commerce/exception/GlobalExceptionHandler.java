@@ -20,4 +20,10 @@ public class GlobalExceptionHandler
     {
         return new ResponseEntity<>(new JSONResponseDTO(false,exception.getMessage(),null),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<JSONResponseDTO> CustomerNotFound(CustomerNotFoundException exception)
+    {
+        return new ResponseEntity<>(new JSONResponseDTO(false,exception.getMessage(),null),HttpStatus.BAD_REQUEST);
+    }
 }

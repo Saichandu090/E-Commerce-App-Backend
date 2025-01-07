@@ -25,4 +25,10 @@ public class Customer
 
     @OneToMany
     private List<Address> addresses;
+
+    @OneToMany
+    private List<Cart> carts;
+
+    @OneToMany
+    private List<WishList> wishLists;
 }
